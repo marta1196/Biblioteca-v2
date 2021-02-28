@@ -1,12 +1,14 @@
-package org.iesalandalus.programacion.biblioteca.mvc.vista;
+package org.iesalandalus.programacion.biblioteca.mvc.vista.texto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.AudioLibro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.LibroEscrito;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
@@ -116,8 +118,10 @@ public class Consola {
 	public static Libro leerLibro() {
 
 		Libro libro = null;
+
 		String tituloLibro, autorLibro;
-		int numPaginasLibro;
+		int opcionLibro;
+		int numPaginasLibro, duracionLibro;
 
 		System.out.print("Introduce el titulo del libro: ");
 		tituloLibro = Entrada.cadena();
@@ -125,10 +129,37 @@ public class Consola {
 		System.out.print("Introduce el autor del libro: ");
 		autorLibro = Entrada.cadena();
 
-		System.out.print("introduce el número de paginas del libro: ");
-		numPaginasLibro = Entrada.entero();
+		do {
 
-		libro = new Libro(tituloLibro, autorLibro, numPaginasLibro);
+			System.out.println(
+					"Introduce una opcion 1 o 2 para el tipo de libro \n" + " 1.Libro escrito, 2.Audio Libro: ");
+			opcionLibro = Entrada.entero();
+
+			switch (opcionLibro) {
+
+			case 1:
+
+				System.out.print("introduce el número de paginas del libro: ");
+				numPaginasLibro = Entrada.entero();
+
+				libro = new LibroEscrito(tituloLibro, autorLibro, numPaginasLibro);
+				break;
+
+			case 2:
+
+				System.out.print("introduce la duración del libro: ");
+				duracionLibro = Entrada.entero();
+
+				libro = new AudioLibro(tituloLibro, autorLibro, duracionLibro);
+				break;
+
+			default:
+
+				System.out.println("Lo siento pero esa opción no esta permitida");
+				break;
+			}
+
+		} while (opcionLibro != 1 && opcionLibro != 2);
 
 		return libro;
 	}
