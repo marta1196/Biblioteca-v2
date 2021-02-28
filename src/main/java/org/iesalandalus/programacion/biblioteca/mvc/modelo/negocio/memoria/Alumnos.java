@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
+package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.memoria;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,8 +7,9 @@ import java.util.List;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.IAlumnos;
 
-public class Alumnos {
+public class Alumnos implements IAlumnos {
 
 	private List<Alumno> coleccionAlumnos;
 
@@ -17,6 +18,7 @@ public class Alumnos {
 		coleccionAlumnos = new ArrayList<>();
 	}
 
+	@Override
 	public List<Alumno> get() {
 
 		List<Alumno> copiaAlumnos = copiaProfundaAlumnos();
@@ -37,11 +39,13 @@ public class Alumnos {
 		return copiaAlumnos;
 	}
 
+	@Override
 	public int getTamano() {
 
 		return coleccionAlumnos.size();
 	}
 
+	@Override
 	public void insertar(Alumno alumno) throws OperationNotSupportedException {
 
 		if (alumno == null) {
@@ -59,6 +63,7 @@ public class Alumnos {
 		}
 	}
 
+	@Override
 	public Alumno buscar(Alumno alumno) {
 
 		int indiceAlumno;
@@ -82,6 +87,7 @@ public class Alumnos {
 		return alumno;
 	}
 
+	@Override
 	public void borrar(Alumno alumno) throws OperationNotSupportedException {
 
 		if (alumno == null) {
