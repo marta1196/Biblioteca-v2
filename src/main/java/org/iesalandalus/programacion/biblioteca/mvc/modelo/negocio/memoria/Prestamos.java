@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio;
+package org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.memoria;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +13,9 @@ import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Curso;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Libro;
 import org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio.Prestamo;
+import org.iesalandalus.programacion.biblioteca.mvc.modelo.negocio.IPrestamos;
 
-public class Prestamos {
+public class Prestamos implements IPrestamos {
 
 	List<Prestamo> coleccionPrestamos;
 
@@ -23,6 +24,7 @@ public class Prestamos {
 		coleccionPrestamos = new ArrayList<>();
 	}
 
+	@Override
 	public List<Prestamo> get() {
 
 		List<Prestamo> copiaPrestamos = copiaProfundaPrestamos();
@@ -50,11 +52,13 @@ public class Prestamos {
 		return copiaPrestamos;
 	}
 
+	@Override
 	public int getTamano() {
 
 		return coleccionPrestamos.size();
 	}
 
+	@Override
 	public List<Prestamo> get(Alumno alumno) {
 
 		if (alumno == null) {
@@ -82,6 +86,7 @@ public class Prestamos {
 		return prestamoAlumno;
 	}
 
+	@Override
 	public List<Prestamo> get(Libro libro) {
 
 		if (libro == null) {
@@ -109,6 +114,7 @@ public class Prestamos {
 		return prestamoLibro;
 	}
 
+	@Override
 	public List<Prestamo> get(LocalDate fecha) {
 
 		if (fecha == null) {
@@ -137,6 +143,7 @@ public class Prestamos {
 		return prestamoFecha;
 	}
 
+	@Override
 	public Map<Curso, Integer> getEstadisticaMensualPorCurso(LocalDate mes) {
 
 		Curso curso;
@@ -172,6 +179,7 @@ public class Prestamos {
 		return (primeraFecha.getYear() == segundaFecha.getYear() && primeraFecha.getMonth() == segundaFecha.getMonth());
 	}
 
+	@Override
 	public void prestar(Prestamo prestamo) throws OperationNotSupportedException {
 
 		if (prestamo == null) {
@@ -189,6 +197,7 @@ public class Prestamos {
 		}
 	}
 
+	@Override
 	public void devolver(Prestamo prestamo, LocalDate fechaDevolver) throws OperationNotSupportedException {
 
 		int indicePrestamo;
@@ -210,6 +219,7 @@ public class Prestamos {
 		}
 	}
 
+	@Override
 	public Prestamo buscar(Prestamo prestamo) {
 
 		int indicePrestamo;
@@ -233,6 +243,7 @@ public class Prestamos {
 		return prestamo;
 	}
 
+	@Override
 	public void borrar(Prestamo prestamo) throws OperationNotSupportedException {
 
 		if (prestamo == null) {
