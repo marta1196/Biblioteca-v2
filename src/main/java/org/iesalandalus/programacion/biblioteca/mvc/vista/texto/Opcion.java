@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.biblioteca.mvc.vista;
+package org.iesalandalus.programacion.biblioteca.mvc.vista.texto;
 
 public enum Opcion {
 
@@ -146,7 +146,7 @@ public enum Opcion {
 		}
 	};
 
-	private static Vista vista;
+	private static VistaTexto vista;
 	private String mensaje;
 
 	private Opcion(String mensaje) {
@@ -156,7 +156,7 @@ public enum Opcion {
 
 	public abstract void ejecutar();
 
-	protected static void setVista(Vista vista) {
+	protected static void setVista(VistaTexto vista) {
 
 		Opcion.vista = vista;
 	}
