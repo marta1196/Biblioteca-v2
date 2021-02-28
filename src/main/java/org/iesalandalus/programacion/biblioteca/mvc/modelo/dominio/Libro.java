@@ -2,20 +2,15 @@ package org.iesalandalus.programacion.biblioteca.mvc.modelo.dominio;
 
 import java.util.Objects;
 
-public class Libro {
+public abstract class Libro {
 
-	private static final int PAGINAS_PARA_RECOMPENSA = 25;
-	private static final float PUNTOS_PREMIO = 0.5f;
+	protected String titulo;
+	protected String autor;
 
-	private String titulo;
-	private String autor;
-	private int numPaginas;
-
-	public Libro(String titulo, String autor, int numPaginas) {
+	public Libro(String titulo, String autor) {
 
 		setTitulo(titulo);
 		setAutor(autor);
-		setNumPaginas(numPaginas);
 	}
 
 	public Libro(Libro libro) {
@@ -27,20 +22,21 @@ public class Libro {
 
 		setTitulo(libro.getTitulo());
 		setAutor(libro.getAutor());
-		setNumPaginas(libro.getNumPaginas());
 	}
 
 	public static Libro getLibroFicticio(String titulo, String autor) {
 
-		return new Libro(titulo, autor, 471);
+		return new LibroEscrito(titulo, autor, 471);
 	}
+
+	public abstract float getPuntos();
 
 	public String getTitulo() {
 
 		return titulo;
 	}
 
-	private void setTitulo(String titulo) {
+	protected void setTitulo(String titulo) {
 
 		if (titulo == null) {
 
@@ -59,7 +55,7 @@ public class Libro {
 		return autor;
 	}
 
-	private void setAutor(String autor) {
+	protected void setAutor(String autor) {
 
 		if (autor == null) {
 
@@ -71,30 +67,6 @@ public class Libro {
 		}
 
 		this.autor = autor;
-	}
-
-	public int getNumPaginas() {
-
-		return numPaginas;
-	}
-
-	private void setNumPaginas(int numPaginas) {
-
-		if (numPaginas <= 0) {
-
-			throw new IllegalArgumentException("ERROR: El número de páginas debe ser mayor que cero.");
-		}
-
-		this.numPaginas = numPaginas;
-	}
-
-	public float getPuntos() {
-
-		float puntosGanados;
-
-		puntosGanados = (float) (Math.ceil(((double) getNumPaginas() + 1) / PAGINAS_PARA_RECOMPENSA) * PUNTOS_PREMIO);
-
-		return puntosGanados;
 	}
 
 	@Override
@@ -123,6 +95,6 @@ public class Libro {
 	@Override
 	public String toString() {
 
-		return String.format("título=%s, autor=%s, número de páginas=%s", titulo, autor, numPaginas);
+		return String.format("título=%s, autor=%s", titulo, autor);
 	}
 }
